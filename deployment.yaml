@@ -1,0 +1,32 @@
+# deployment.yaml
+# This file defines the Kubernetes Deployment for the SWE 645 student survey app.
+# It runs 3 replicas (pods) of the app for high availability and resiliency.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studentsurvey-deployment
+  labels:
+    app: studentsurvey
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: studentsurvey
+  template:
+    metadata:
+      labels:
+        app: studentsurvey
+    spec:
+      containers:
+      - name: studentsurvey
+        image: DOCKERHUB_USERNAME/studentsurvey645:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"

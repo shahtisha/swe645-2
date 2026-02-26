@@ -1,0 +1,19 @@
+# service.yaml
+# This file defines the Kubernetes Service for the SWE 645 student survey app.
+# It exposes the app to the internet using an AWS Load Balancer on port 80.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: studentsurvey-service
+  labels:
+    app: studentsurvey
+spec:
+  type: LoadBalancer
+  selector:
+    app: studentsurvey
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
